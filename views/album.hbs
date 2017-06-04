@@ -1,0 +1,33 @@
+{{> userAcc }}
+<div id="main">
+    <h2>
+        Album
+    </h2>
+    <ul>
+        {{#each tracks}}
+            <li>
+                <h5>Track: {{this.name}}</h5>
+            </li>
+            {{#if ../this.user}}
+                <form action="/addToPlaylist" method="post">
+                    <input class="btn btn-success" type="submit" value="Add">
+                    <input type="hidden" name="trackName" value="{{this.name}}"/>
+                    <input type="hidden" name="trackId" value="{{this.id}}">
+                    <label>
+                        <h5>Playlist</h5>
+                    </label>
+                    <select name="playlist">
+                        {{#each ../this.user.playlists}}
+                            <option value={{name}}> {{name}} </option>
+                        {{/each}}
+                        {{#each ../this.user.shared}}
+                            {{#if this.permission }}
+                                <option value={{playlist}}> {{playlist}} </option>
+                            {{/if}}
+                        {{/each}}
+                    </select>
+                </form>
+            {{/if}}
+        {{/each}}
+    </ul>
+</div>

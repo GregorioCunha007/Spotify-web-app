@@ -1,0 +1,44 @@
+{{> userAcc }}
+<div id="main">
+    <h2>
+        Artist
+    </h2>
+    <ul>
+        <li>{{artist.name}}</li>
+        <li> <a> <img src={{artist.image}}> </img> </a> </li>
+    </ul>
+    <h2>
+        Albums
+    </h2>
+    <h3>
+        Total results: {{this.total}}
+    </h3>
+    <ul>
+        {{#each albums}}
+            <li>
+                <a href="/album?id={{this.id}}"> Album name: {{this.name}}</a>
+            </li>
+            <li>
+                <a href="/album?id={{this.id}}"> <img src = {{this.image}}> </img> </a>
+            </li>
+        {{/each}}
+    </ul>
+    <ul>
+        {{#if next}}
+            <li>
+                <a href="/artist?id={{artist.id}}&offset={{this.offsetForward}}" > Next </a>
+            </li>
+        {{/if}}
+        {{#if back}}
+            <li>
+                <a href="/artist?id={{artist.id}}&offset={{this.offsetBackwards}}" > Back </a>
+            </li>
+        {{/if}}
+        <li>
+            <a href="/artist?id={{artist.id}}&offset={{this.first}}"> First </a>
+        </li>
+        <li>
+            <a href="/artist?id={{artist.id}}&offset={{this.last}}"> Last </a>
+        </li>
+    </ul>
+</div>

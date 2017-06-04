@@ -1,0 +1,38 @@
+{{> userAcc }}
+<div id="main">
+    <div class="container">
+        <h2>
+            <u>{{this.name}}</u>
+        </h2>
+        <h3>
+            Tracks
+        </h3>
+    </div>
+    <div class="container my-table-container my-well">
+        <table class="table">
+            <thead>
+            <tr>
+                <th><h5>Track</h5></th>
+                <th class="my-remove-button"><h5>Remove</h5></th>
+            </tr>
+            </thead>
+            {{#each tracks}}
+                <tr>
+                    <td>
+                        <a href="https://api.spotify.com/v1/tracks/{{this.id}}"
+                           style="color:blueviolet"> {{this.name}} </a>
+                    </td>
+                    <td class=" my-remove-button">
+                        <form action="/deleteTrack" method="post">
+                            <input type="hidden" name="playlist" value="{{../this.name}}">
+                            <input type="hidden" name="trackId" value="{{this.id}}">
+                            <button class="btn btn-danger" type="submit"> X </button>
+                        </form>
+                    </td>
+                </tr>
+            {{/each}}
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>

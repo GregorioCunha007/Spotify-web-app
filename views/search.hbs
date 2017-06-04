@@ -1,0 +1,28 @@
+{{> userAcc }}
+<div id="main">
+    <div class="right-header">
+        {{>searchForm}}
+    </div>
+    <div class="container my-well">
+        <h1>Artists</h1>
+        <h2>Total results: {{this.total}}</h2>
+    </div>
+    <div class="container my-table-container my-well">
+        <table class="table artist-table">
+            <thead>
+            <tr>
+                <th><h5>Name</h5></th>
+                <th><h5>Picture</h5></th>
+            </tr>
+            </thead>
+            {{#each artists}}
+                <tr>
+                    <td><a href="/artist?id={{this.id}}&offset=0"> {{this.name}} </a></td>
+                    <td><a href="/artist?id={{this.id}}&offset=0"> <img src={{this.image}}> </img> </a></td>
+                </tr>
+            {{/each}}
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>

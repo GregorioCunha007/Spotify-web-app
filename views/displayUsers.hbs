@@ -1,0 +1,32 @@
+{{> userAcc }}
+<div id="main" class="container">
+    <h2> Users available to share with </h2>
+    <div class="my-table-container my-well">
+        {{#if users}}
+            <table id="availableUsers">
+                <thead>
+                <tr>
+                    <th><h5>User</h5></th>
+                </tr>
+                </thead>
+                {{#each users}}
+                    <tr>
+                        <td>
+                            <h5>{{this.id}}</h5>
+                        </td>
+                        <td>
+                            <input type="checkbox" name="permissions" value="write" id="{{this.id}}"> Write permissions <br>
+                        </td>
+                        <td>
+                            <input type="button" value="Invite"
+                                   onclick="sendInvite('{{id}}','{{../playlistName}}','{{../playlistHref}}')">
+                            <br>
+                        </td>
+                    </tr>
+                {{/each}}
+            </table>
+        {{else}}
+            <h3> No other users available </h3>
+        {{/if}}
+    </div>
+</div>

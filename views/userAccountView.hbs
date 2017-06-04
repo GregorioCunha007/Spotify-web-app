@@ -1,0 +1,79 @@
+<div class="container sidenav my-well">
+    {{#if user}}
+        {{#if user.messageBox}}<!-- Cant have blank spaces or else wont remove -->
+            <ul class="list-group" id="messageBox">{{#each user.messageBox}}<li class="my-list-group-item clearfix" id="{{this.playlist}}">
+                        <h5> Do you accept to join the playlist {{this.playlist}} created by {{this.from}}</h5>
+                        <h5> Writing permissions: {{this.permissions}} </h5>
+                        <input type="button" value="accept"
+                               onclick="inviteDecision(true,'{{this.from}}','{{this.playlist}}','{{@index}}')">
+                        <input type="button" value="decline"
+                               onclick="inviteDecision(false,'{{this.from}}','{{this.playlist}}','{{@index}}')"></li>
+                {{/each}}
+            </ul>
+        {{else}}
+            <h1> No invitations currently </h1>
+        {{/if}}
+
+        <div class="panel-heading">
+            <h2> Welcome back {{user.username}} !</h2>
+        </div>
+        <form action="/newPlaylist" method="post">
+            <div class="form-group">
+                <label> <h5>Create new playlist:</h5> </label>
+                <input type="text" name="playlist" class="form-control" required/>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create Playlist" class="form-control"/>
+            </div>
+        </form>
+        <div class="my-panel">
+            {{#if user.playlists }}
+                <ul class="list-group">
+                    {{#each user.playlists}}
+                        <li class="my-list-group-item clearfix">
+                            <a href={{this.href}}> {{this.name}} </a>
+                            <span class="pull-right text-right">
+                                <form action="/displayUsers" method="get">
+                                    <input type="hidden" name="playlist" value="{{this.name}}">
+                                    <input type="hidden" name="playlistHref" value="{{this.href}}">
+                                    <button class="btn btn-primary"> Share </button>
+                                </form>
+                                <form action="/deletePlaylist" method="post">
+                                    <input type="hidden" name="playlist" value="{{this.name}}">
+                                    <button class="btn btn-danger" type="submit"> X </button>
+                                </form>
+                            </span>
+                        </li>
+                    {{/each}}
+                </ul>
+            {{/if}}
+                <ul class="list-group" id="sharedPlaylist">
+                    {{#if user.shared}}
+                        {{#each user.shared}}
+                            <li class="my-list-group-item clearfix">
+                                <a href={{this.playlistHref}}> {{this.playlist}} </a>
+                            </li>
+                        {{/each}}
+                    {{/if}}
+                </ul>
+            <form action="/logout" method="get">
+                <button class="btn btn-primary"> Logout </button>
+            </form>
+        </div>
+    {{else}}
+        <form action="/login" method="post">
+            <div class="form-group">
+                <label> <h4>Username:</h4> </label>
+                <input type="text" name="username" class="form-control" required/>
+            </div>
+            <div class="form-group">
+                <label><h4>Password:</h4> </label>
+                <input type="password" name="password" class="form-control" required/>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Log In" name="login" class="form-control"/>
+                <input type="submit" value="Register" name="register" class="form-control"/>
+            </div>
+        </form>
+    {{/if}}
+</div>
